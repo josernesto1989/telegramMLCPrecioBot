@@ -24,10 +24,12 @@ async def getPrecioMLC(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
 app = ApplicationBuilder().token(os.getenv("TOKEN")).build()
 
 app.add_handler(CommandHandler("help", help))
+app.add_handler(CommandHandler("start", help))
 
 app.add_handler(CommandHandler("ayuda", help))
 
 app.add_handler(CommandHandler("preciosDivisas", getPrecioMLC))
+app.add_handler(CommandHandler("precio", getPrecioMLC))
 
 app.run_polling()
 
