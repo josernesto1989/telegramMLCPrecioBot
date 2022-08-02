@@ -6,44 +6,31 @@ from dotenv import load_dotenv
 
 
 load_dotenv()
-onServer=True
-PORT = int(os.environ.get('PORT', 5000))
-TOKEN = os.getenv("TOKEN")
 
-async def help(update: Update, context: CallbackContext) -> None:
+PORT = int(os.environ.get('PORT', 5000))
+async def help(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await update.message.reply_text(f'Hello {update.effective_user.first_name}')
 
-async def getPrecioMLC(update: Update, context: CallbackContext) -> None:
+async def getPrecioMLC(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await update.message.reply_text(f'{getElToqueMLCPrice()}\nFuente: eltoque.com')
 
 
-# app = ApplicationBuilder().token(os.getenv("TOKEN")).build()
+app = ApplicationBuilder().token(os.getenv("TOKEN")).build()
 
-# app.add_handler(CommandHandler("help", help))
+app.add_handler(CommandHandler("help", help))
 
-# app.add_handler(CommandHandler("ayuda", help))
+app.add_handler(CommandHandler("ayuda", help))
 
-# app.add_handler(CommandHandler("preciosDivisas", getPrecioMLC))
+app.add_handler(CommandHandler("preciosDivisas", getPrecioMLC))
 
-      
-def main():
-  ############################# Handlers #########################################
-  updater = Updater(TOKEN, use_context=True)
 
-  dp = updater.dispatcher
-
-  dp.add_handler(CommandHandler('help', help))
-  dp.add_handler(CommandHandler('ayuda', help))
-  dp.add_handler(CommandHandler('preciosDivisas', getPrecioMLC))
-
-  updater.start_webhook(listen="0.0.0.0",
-                          port=int(PORT),
-                          url_path=TOKEN)
-  updater.bot.setWebhook('https://mlctelegrambot.herokuapp.com/' + TOKEN)
-
-  updater.start_polling()
-  updater.idle()
-  ################################################################################
-
-if __name__ == '__main__':
-    main()
+# app.run_webhook(listen="0.0.0.0", port=PORT, url_path=os.getenv("TOKEN"))
+# app.bot.setWebhook('https://mlctelegrambot.herokuapp.com/' + os.getenv("TOKEN"))
+# app.run_polling()
+app.run_webhook(
+    listen='0.0.0.0',
+    port=5000,
+    url_path='TOKEN',
+    webhook_url='https://mlctelegrambot.herokuapp.com/'+os.getenv("TOKEN")
+    # cert='cert_bot1.pem'
+    )
