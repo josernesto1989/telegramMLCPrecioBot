@@ -9,7 +9,13 @@ load_dotenv()
 
 PORT = int(os.environ.get('PORT', 5000))
 async def help(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    await update.message.reply_text(f'Hello {update.effective_user.first_name}')
+    await update.message.reply_text("""Este bot consta de los siguientes comandos:\n
+    /help este comando
+    /ayuda este comando
+    /preciosDivisas precio del cambio de las divisas en el mercado informal en Cuba usando de fuente eltoque.com, trataremos de aumentar el número de fuentes en la medida de lo posible
+    
+    Los precios de compra y venta de divisas los extraemos directamente de nuestras fuentes y no son alterados. El objetivo de este bot es informativo.
+    """)
 
 async def getPrecioMLC(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await update.message.reply_text(f'{getElToqueMLCPrice()}\nFuente: eltoque.com')
