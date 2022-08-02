@@ -1,1 +1,1 @@
-worker: python3 bot.py
+clock: python bot.py
