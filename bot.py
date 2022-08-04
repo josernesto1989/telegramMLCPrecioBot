@@ -19,6 +19,7 @@ async def help(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
 async def getPrecioMLC(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await update.message.reply_text(f'{getElToqueMLCPrice()}\nFuente: eltoque.com')
+    await update.message.reply_text(f'{getBCCPrice()}\nFuente: www.bc.gob.cu')
 
 
 app = ApplicationBuilder().token(os.getenv("TOKEN")).build()
